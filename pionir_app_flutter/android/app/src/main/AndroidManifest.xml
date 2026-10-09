@@ -1,8 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Izin Wi-Fi/lokasi untuk pairing ditambahkan backend saat mengerjakan fitur pairing. -->
+    <!-- usesCleartextTraffic: firmware SmartPlug/ServerSmartPlug hanya melayani HTTP (tanpa TLS) di LAN. -->
     <application
-        android:label="pionir_app_flutter"
+        android:label="PIONIR"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

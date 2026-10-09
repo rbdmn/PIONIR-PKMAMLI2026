@@ -1,30 +1,27 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:pionir_app_flutter/main.dart';
+import 'package:pionir_app_flutter/data/fake_smartplug_repository.dart';
+import 'package:pionir_app_flutter/models/smartplug_models.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  final repo = FakeSmartPlugRepository(delay: Duration.zero);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('daftar perangkat palsu tersedia', () async {
+    final devices = await repo.watchDevices().first;
+    expect(devices, hasLength(2));
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  test('relay bisa dimatikan dan pembacaan ikut berubah', () async {
+    const id = 'SP-AABBCCDDEE01';
+    expect(await repo.setRelay(id, on: false), RelayState.off);
+    final reading = await repo.watchReading(id).first;
+    expect(reading.relay, RelayState.off);
+    expect(reading.measurement!.activePower, 0);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('perangkat offline melempar SmartPlugException', () async {
+    expect(
+      () => repo.setRelay('SP-AABBCCDDEE02', on: true),
+      throwsA(isA<SmartPlugException>().having((e) => e.code, 'code', 'offline')),
+    );
   });
 }
