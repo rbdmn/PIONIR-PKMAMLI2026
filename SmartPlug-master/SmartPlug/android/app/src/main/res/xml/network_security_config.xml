@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+SmartPlug, the SmartPlug AP, and ServerSmartPlug are all plain-HTTP LAN devices
+with no TLS certificate (see firmware/LOCAL-API.md and design.md). This app
+never talks to a public/cloud endpoint, so cleartext is allowed for all
+destinations rather than an unmanageable per-IP allowlist.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

@@ -1,0 +1,42 @@
+# This repository intentionally publishes only the SmartPlug application,
+# ESP-07 firmware, and ServerSmartPlug source trees.
+/*
+!/.gitignore
+!/README.md
+!/SmartPlug/
+!/ServerSmartPlug/
+!/internal-records/
+
+# Android local state and generated packages.
+/SmartPlug/android/.android-sdk/
+/SmartPlug/android/.gradle/
+/SmartPlug/android/.gradle-tmp/
+/SmartPlug/android/app/build/
+/SmartPlug/android/*.keystore
+/SmartPlug/android/*.jks
+/SmartPlug/android/logcat*.txt
+
+# Firmware build state and distributable binaries are released separately.
+/SmartPlug/firmware/.pio/
+/SmartPlug/firmware/artifacts/
+/ServerSmartPlug/.pio/
+/SmartPlug/output/
+/SmartPlug/Storage/
+/SmartPlug/firmware.rar
+/SmartPlug/output/firmware-test.bin.gz
+
+# Python and local tool caches.
+**/__pycache__/
+*.pyc
+
+# Local working notes and credentials.
+/SmartPlug/.claude/
+/SmartPlug/CLAUDE.md
+/SmartPlug/tmp/
+/SmartPlug/HANDOVER-PROMPT.md
+/SmartPlug/prompt_littlefs_energy_persistence.txt
+*.pem
+*.p12
+*.key
+.env
+.env.*
